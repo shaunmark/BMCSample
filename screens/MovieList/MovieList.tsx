@@ -23,6 +23,7 @@ export function MovieList({navigation}: Props): React.JSX.Element {
   const movieContext = useMovieContext();
 
   const isSearchTextEmpty = searchText === '';
+  const isMovieListEmpty = movieList.length === 0;
 
   const fetchMovieList = React.useCallback(async () => {
     setLoading(true);
@@ -54,6 +55,8 @@ export function MovieList({navigation}: Props): React.JSX.Element {
 
   const titleText = isSearchTextEmpty
     ? `Discover latest movies!`
+    : isMovieListEmpty
+    ? `No results found for "${searchText}"`
     : `Showing results for "${searchText}"`;
 
   return (

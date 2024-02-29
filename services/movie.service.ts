@@ -16,6 +16,9 @@ type MovieListResponseType = {
     poster_path: string;
   }[];
 };
+/**
+ * Fetch request that returns a list of movies
+ */
 export async function getMovieList(): Promise<
   ReponseInterface<MovieItemType[]>
 > {
@@ -35,7 +38,9 @@ export async function getMovieList(): Promise<
     };
   }
 }
-
+/**
+ * helper function for movie listing
+ */
 function parseMovieList(data: MovieListResponseType['results']) {
   return data?.map(
     ({id, original_title, backdrop_path, release_date, poster_path}) => ({
@@ -57,6 +62,10 @@ type MovieDetailsResponseType = {
   status: string;
   genres: {id: number; name: string}[];
 };
+/**
+ * Fetch request for retrieving movie details
+ * @param id movie ID
+ */
 export async function getMovieDetails(
   id: string,
 ): Promise<ReponseInterface<MovieDetailsType>> {
@@ -76,7 +85,9 @@ export async function getMovieDetails(
     };
   }
 }
-
+/**
+ * helper function for movie details
+ */
 function parseMovieDetails(data: MovieDetailsResponseType) {
   return {
     id: `${data.id}`,
@@ -89,6 +100,10 @@ function parseMovieDetails(data: MovieDetailsResponseType) {
   };
 }
 
+/**
+ * Fetch request for returning list of movies wrt search text
+ * @param searchQuery search text
+ */
 export async function queryMovieList(
   searchQuery: string,
 ): Promise<ReponseInterface<MovieItemType[]>> {

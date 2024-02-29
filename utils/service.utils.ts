@@ -8,6 +8,13 @@ const PATHS: Record<ApiRouteTypes, string> = {
 };
 
 type ApiRouteTypes = 'list' | 'details' | 'image' | 'search';
+/**
+ *  This function just returns the correct url for each movie service
+ * @param type type of api url
+ * @param route for specifying additional route
+ * @param searchParams search params to be added to url
+ * @returns API url
+ */
 export const getApiRoute = (
   type: ApiRouteTypes,
   route = '',
