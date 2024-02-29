@@ -39,7 +39,7 @@ export function MovieList({navigation}: Props): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <ContentLoader
         isError={isError}
         isLoading={isLoading}
@@ -76,7 +76,7 @@ function MovieItem(props: MovieItemProps) {
           <Image style={cn.moviePoster} src={props.posterImage} />
           <View style={cn.movieText}>
             <Text style={cn.movieTitle}>{props.title}</Text>
-            <Text style={cn.defaultText} >{props.releaseDate}</Text>
+            <Text style={cn.defaultText}>{props.releaseDate}</Text>
           </View>
         </View>
       </View>

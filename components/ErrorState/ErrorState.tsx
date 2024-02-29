@@ -17,16 +17,19 @@ const cn = StyleSheet.create({
   errorWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 8,
     alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    gap: 8,
   },
   prompt: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 24,
   },
   anchor: {
     color: '#247BA0',
     textDecorationColor: '#247BA0',
     marginHorizontal: 'auto',
+    fontSize: 18
   },
 });

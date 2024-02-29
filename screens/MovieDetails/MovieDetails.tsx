@@ -32,7 +32,7 @@ export function MovieDetails({navigation}: Props): React.JSX.Element {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <ContentLoader
         isError={isError || !movieDetails}
         isLoading={isLoading}
