@@ -1,13 +1,92 @@
-<<<<<<< HEAD
-# BMCSample
-=======
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# BMC Sample
 
-# Getting Started
+## Description
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Plain and simple application that shows a list of movies on home sceen, and has capability to navigate to details screen with more details about the movie. Has a Search bar for searching movies on home page.
 
-## Step 1: Start the Metro Server
+## Screens
+
+### Movie Listing Screen
+
+This screen mainly contains a list of movies which are interactable to navigate to its details page. It also has the feature to search for movies.
+
+### Movie Details Screen
+
+This page is pretty simple, it shows more details about the image. Details included as of now are overview, genre and release date along with an image of the movie.
+
+## Service Layer
+
+### TMDB API Integration
+
+#### List of Movies API
+
+- **Endpoint:** `https://api.themoviedb.org/3/discover/movie`
+- **Description:** Retrieves a list of movies from The Movie Database (TMDB).
+- **Method:** `GET`
+- **Response:** JSON format containing the list of movies.
+
+#### Movie Details API
+
+- **Endpoint:** `https://api.themoviedb.org/3/movie/{movieId}`
+- **Description:** Retrieves details of a specific movie from TMDB based on the provided movie ID.
+- **Method:** `GET`
+- **Parameters:**
+  - `movieId`: ID of the movie for which details are requested.
+- **Response:** JSON format containing details of the specified movie.
+
+#### Movie Image Retrieval API
+
+- **Endpoint:** `https://image.tmdb.org/t/p/w500/{imageId}`
+- **Description:** Retrieves the image associated with a specific movie from TMDB based on the provided movie ID.
+- **Method:** `GET`
+- **Parameters:**
+  - `imageId`: ID of the image.
+- **Response:** URL to the image.
+
+#### Movie Search API
+
+- **Endpoint:** `https://api.themoviedb.org/3/search/movie?query={query}`
+- **Description:** Retrieves list of movies by the query text supplied to it.
+- **Method:** `GET`
+- **Parameters:**
+  - `query`: Any search query(for movie to be specific).
+- **Response:** JSON format containing the list of movies.
+
+## Component File
+
+### Common Components
+
+#### ContentLoader Component
+
+- **Description:** Renders the error state, loading indicator, or content based on the props passed to it.
+- **Usage:**
+  ```jsx
+  import ContentLoader from './path/to/ContentLoader';
+
+  // Inside your component
+  <ContentLoader isloading={isLoading} isError={hasError}>
+    {/* Your content goes here */}
+  </ContentLoader>
+
+#### SearchBar Component
+
+- **Description:** Renders an TextInput field coupled with a button to mimic as a search bar. Wire proper search function to it.
+
+## Getting Started
+
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+
+### Step 1: Set up Environment Variables
+
+Create a \`**.env**\` file in the root of your project and add the following variable:
+
+```bash
+MOVIE_API_KEY=your_tmdb_api_key
+```
+Replace \`**your_tmdb_api_key**\` with your actual TMDB API key.
+
+
+### Step 2: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
@@ -21,11 +100,11 @@ npm start
 yarn start
 ```
 
-## Step 2: Start your Application
+### Step 3: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### For Android
+#### For Android
 
 ```bash
 # using npm
@@ -35,7 +114,7 @@ npm run android
 yarn android
 ```
 
-### For iOS
+#### For iOS
 
 ```bash
 # using npm
@@ -49,35 +128,6 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+## Contributor
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
->>>>>>> 3db1597 (Initial Commit)
+ - Shaun
