@@ -12,11 +12,15 @@ import {getMovieList} from '../../services/movie.service';
 import {MovieItemType, MovieListProps as Props} from './MovieList.type';
 import {useMovieContext} from '../../context/movie';
 import {ContentLoader} from '../../components/ContentLoader';
+import {SearchBar} from '../../components/SearchBar';
+import {Loader} from '../../components/Loader';
+import {ErrorState} from '../../components/ErrorState';
 
 export function MovieList({navigation}: Props): React.JSX.Element {
   const [movieList, setMovieList] = React.useState<MovieItemType[]>([]);
   const [isError, setError] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
+  const [searchText, setSearchText] = React.useState('');
 
   const movieContext = useMovieContext();
 
@@ -38,25 +42,30 @@ export function MovieList({navigation}: Props): React.JSX.Element {
     navigation.navigate('MovieDetails');
   };
 
+  const onSearch = (newSearchText: string) => setSearchText(newSearchText);
+
   return (
     <SafeAreaView>
       <ContentLoader
         isError={isError}
         isLoading={isLoading}
         onPressTryAgain={fetchMovieList}>
-        <View style={cn.list}>
-          <FlatList
-            scrollEnabled
-            data={movieList}
-            renderItem={({item}) => (
-              <MovieItem
-                key={item.id}
-                {...item}
-                onClick={navigateToDetails(item.id)}
-              />
-            )}
-          />
-        </View>
+        <>
+          <SearchBar onPressSearch={onSearch} />
+          <View style={cn.list}>
+            <FlatList
+              scrollEnabled
+              data={movieList}
+              renderItem={({item}) => (
+                <MovieItem
+                  key={item.id}
+                  {...item}
+                  onClick={navigateToDetails(item.id)}
+                />
+              )}
+            />
+          </View>
+        </>
       </ContentLoader>
     </SafeAreaView>
   );
@@ -76,7 +85,7 @@ function MovieItem(props: MovieItemProps) {
           <Image style={cn.moviePoster} src={props.posterImage} />
           <View style={cn.movieText}>
             <Text style={cn.movieTitle}>{props.title}</Text>
-            <Text style={cn.defaultText} >{props.releaseDate}</Text>
+            <Text style={cn.defaultText}>{props.releaseDate}</Text>
           </View>
         </View>
       </View>
