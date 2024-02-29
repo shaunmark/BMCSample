@@ -45,7 +45,7 @@ export function MovieList({navigation}: Props): React.JSX.Element {
   const onSearch = (newSearchText: string) => setSearchText(newSearchText);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <ContentLoader
         isError={isError}
         isLoading={isLoading}
