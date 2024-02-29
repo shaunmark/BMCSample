@@ -8,13 +8,11 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {getMovieList} from '../../services/movie.service';
+import {getMovieList, queryMovieList} from '../../services/movie.service';
 import {MovieItemType, MovieListProps as Props} from './MovieList.type';
 import {useMovieContext} from '../../context/movie';
 import {ContentLoader} from '../../components/ContentLoader';
 import {SearchBar} from '../../components/SearchBar';
-import {Loader} from '../../components/Loader';
-import {ErrorState} from '../../components/ErrorState';
 
 export function MovieList({navigation}: Props): React.JSX.Element {
   const [movieList, setMovieList] = React.useState<MovieItemType[]>([]);
@@ -24,18 +22,21 @@ export function MovieList({navigation}: Props): React.JSX.Element {
 
   const movieContext = useMovieContext();
 
+  const isSearchTextEmpty = searchText === '';
+
   const fetchMovieList = React.useCallback(async () => {
+    console.log('is this working');
     setLoading(true);
     setError(false);
-    const {isError, data} = await getMovieList();
+    const fetchAPI = isSearchTextEmpty
+      ? getMovieList
+      : () => queryMovieList(searchText);
+    const {isError, data} = await fetchAPI();
     setError(isError);
-    if (!isError) setMovieList(data);
+    if (!isError && !data) setError(true);
+    if (!isError && data) setMovieList(data);
     setLoading(false);
-  }, []);
-
-  React.useEffect(() => {
-    fetchMovieList();
-  }, []);
+  }, [searchText]);
 
   const navigateToDetails = (id: string) => () => {
     movieContext.actions.setMovieSelection(id);
@@ -43,6 +44,14 @@ export function MovieList({navigation}: Props): React.JSX.Element {
   };
 
   const onSearch = (newSearchText: string) => setSearchText(newSearchText);
+
+  React.useEffect(() => {
+    fetchMovieList();
+  }, [searchText]);
+
+  const titleText = isSearchTextEmpty
+    ? `Discover latest movies!`
+    : `Showing results for "${searchText}"`;
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -53,6 +62,7 @@ export function MovieList({navigation}: Props): React.JSX.Element {
         <>
           <SearchBar onPressSearch={onSearch} />
           <View style={cn.list}>
+            <Text style={cn.titleText}>{titleText}</Text>
             <FlatList
               scrollEnabled
               data={movieList}
@@ -99,6 +109,11 @@ const cn = StyleSheet.create({
     flexDirection: 'column',
     padding: 18,
     columnGap: 18,
+  },
+  titleText: {
+    color: 'black',
+    fontSize: 16,
+    marginBottom: 12,
   },
   movieCardWrapper: {
     marginBottom: 12,
