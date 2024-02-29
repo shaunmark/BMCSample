@@ -20,7 +20,7 @@ function App(): React.JSX.Element {
           <Stack.Screen
             name="MovieList"
             component={MovieList}
-            options={{headerShown: false}}
+            options={{title: 'Home'}}
           />
           <Stack.Screen
             name="MovieDetails"

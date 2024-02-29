@@ -17,6 +17,7 @@ export function SearchBar(props: Props) {
         value={inputText}
         onChangeText={onChangeText}
         placeholder="Search for a movie..."
+        placeholderTextColor={'grey'}
       />
       <Button title="Go" color="#247BA0" onPress={onPressSearch} />
     </View>

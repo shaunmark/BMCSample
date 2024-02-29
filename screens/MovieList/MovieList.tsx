@@ -25,13 +25,14 @@ export function MovieList({navigation}: Props): React.JSX.Element {
   const isSearchTextEmpty = searchText === '';
 
   const fetchMovieList = React.useCallback(async () => {
-    console.log('is this working');
     setLoading(true);
     setError(false);
     const fetchAPI = isSearchTextEmpty
       ? getMovieList
       : () => queryMovieList(searchText);
+
     const {isError, data} = await fetchAPI();
+
     setError(isError);
     if (!isError && !data) setError(true);
     if (!isError && data) setMovieList(data);
@@ -109,7 +110,7 @@ const cn = StyleSheet.create({
     flexDirection: 'column',
     padding: 18,
     columnGap: 18,
-    flex: 1
+    flex: 1,
   },
   titleText: {
     color: 'black',
