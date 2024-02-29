@@ -40,11 +40,11 @@ export function MovieList({navigation}: Props): React.JSX.Element {
 
   return (
     <SafeAreaView>
-      <View style={cn.list}>
-        <ContentLoader
-          isError={isError}
-          isLoading={isLoading}
-          onPressTryAgain={fetchMovieList}>
+      <ContentLoader
+        isError={isError}
+        isLoading={isLoading}
+        onPressTryAgain={fetchMovieList}>
+        <View style={cn.list}>
           <FlatList
             scrollEnabled
             data={movieList}
@@ -56,8 +56,8 @@ export function MovieList({navigation}: Props): React.JSX.Element {
               />
             )}
           />
-        </ContentLoader>
-      </View>
+        </View>
+      </ContentLoader>
     </SafeAreaView>
   );
 }

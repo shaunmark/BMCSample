@@ -14,7 +14,12 @@ export function ErrorState(props: Props) {
 }
 
 const cn = StyleSheet.create({
-  errorWrapper: {},
+  errorWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+    alignItems: 'center',
+  },
   prompt: {
     color: 'black',
     fontSize: 20,
