@@ -17,8 +17,16 @@ function App(): React.JSX.Element {
     <NavigationContainer>
       <MovieContextProvider>
         <Stack.Navigator>
-          <Stack.Screen name="MovieList" component={MovieList} />
-          <Stack.Screen name="MovieDetails" component={MovieDetails} />
+          <Stack.Screen
+            name="MovieList"
+            component={MovieList}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MovieDetails"
+            component={MovieDetails}
+            options={{title: 'Movie Details'}}
+          />
         </Stack.Navigator>
       </MovieContextProvider>
     </NavigationContainer>

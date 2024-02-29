@@ -30,6 +30,7 @@ const cn = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#247BA0',
     margin: 6,
+    marginTop: 14,
     backgroundColor: 'white',
   },
   input: {
