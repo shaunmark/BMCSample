@@ -8,7 +8,7 @@ import {MovieContextProvider} from './context/movie';
 
 export type RootStackParamList = {
   MovieList: undefined;
-  MovieDetails: undefined;
+  MovieDetails: {movieName: string};
 };
 
 function App(): React.JSX.Element {
@@ -25,7 +25,7 @@ function App(): React.JSX.Element {
           <Stack.Screen
             name="MovieDetails"
             component={MovieDetails}
-            options={{title: 'Movie Details'}}
+            options={({route}) => ({title: `Movie: ${route.params.movieName}`})}
           />
         </Stack.Navigator>
       </MovieContextProvider>

@@ -39,10 +39,12 @@ export function MovieList({navigation}: Props): React.JSX.Element {
     setLoading(false);
   }, [searchText]);
 
-  const navigateToDetails = (id: string) => () => {
-    movieContext.actions.setMovieSelection(id);
-    navigation.navigate('MovieDetails');
-  };
+  const navigateToDetails =
+    ({id, title}: MovieItemType) =>
+    () => {
+      movieContext.actions.setMovieSelection(id);
+      navigation.navigate('MovieDetails', {movieName: title});
+    };
 
   const onSearch = (newSearchText: string) => setSearchText(newSearchText);
 
@@ -71,7 +73,7 @@ export function MovieList({navigation}: Props): React.JSX.Element {
                 <MovieItem
                   key={item.id}
                   {...item}
-                  onClick={navigateToDetails(item.id)}
+                  onClick={navigateToDetails(item)}
                 />
               )}
             />
