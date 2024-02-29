@@ -2,13 +2,13 @@
 
 ## Description
 
-Plain and simple application that shows a list of movies on home sceen, and has capability to navigate to details screen with more details about the movie
+Plain and simple application that shows a list of movies on home sceen, and has capability to navigate to details screen with more details about the movie. Has a Search bar for searching movies on home page.
 
 ## Screens
 
 ### Movie Listing Screen
 
-This screen mainly contains a list of movies which are interactable to navigate to its details page.
+This screen mainly contains a list of movies which are interactable to navigate to its details page. It also has the feature to search for movies.
 
 ### Movie Details Screen
 
@@ -43,6 +43,15 @@ This page is pretty simple, it shows more details about the image. Details inclu
   - `imageId`: ID of the image.
 - **Response:** URL to the image.
 
+#### Movie Search API
+
+- **Endpoint:** `https://api.themoviedb.org/3/search/movie?query={query}`
+- **Description:** Retrieves list of movies by the query text supplied to it.
+- **Method:** `GET`
+- **Parameters:**
+  - `query`: Any search query(for movie to be specific).
+- **Response:** JSON format containing the list of movies.
+
 ## Component File
 
 ### Common Components
@@ -58,6 +67,10 @@ This page is pretty simple, it shows more details about the image. Details inclu
   <ContentLoader isloading={isLoading} isError={hasError}>
     {/* Your content goes here */}
   </ContentLoader>
+
+#### SearchBar Component
+
+- **Description:** Renders an TextInput field coupled with a button to mimic as a search bar. Wire proper search function to it.
 
 ## Getting Started
 
