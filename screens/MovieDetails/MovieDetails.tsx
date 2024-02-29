@@ -21,7 +21,6 @@ export function MovieDetails({navigation}: Props): React.JSX.Element {
     const {isError, data} = await getMovieDetails(
       movieContext.state.selectedId,
     );
-    console.log({isError, data});
     setError(isError);
     if (!isError) setMovieDetails(data);
     setLoading(false);

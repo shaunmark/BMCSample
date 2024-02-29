@@ -4,9 +4,20 @@ const PATHS: Record<ApiRouteTypes, string> = {
   list: 'https://api.themoviedb.org/3/discover/movie',
   details: 'https://api.themoviedb.org/3/movie',
   image: 'https://image.tmdb.org/t/p/w500',
+  search: 'https://api.themoviedb.org/3/search/movie',
 };
 
-type ApiRouteTypes = 'list' | 'details' | 'image';
-export const getApiRoute = (type: ApiRouteTypes, route = ''): string => {
-  return `${PATHS[type]}${route}?api_key=${MOVIE_API_KEY}`;
+type ApiRouteTypes = 'list' | 'details' | 'image' | 'search';
+export const getApiRoute = (
+  type: ApiRouteTypes,
+  route = '',
+  searchParams?: Record<string, string>,
+): string => {
+  const url = `${PATHS[type]}${route}?api_key=${MOVIE_API_KEY}`;
+  if (!searchParams) return url;
+  const searchParamString = Object.entries(searchParams).reduce(
+    (acc, [key, value]) => `${acc}&${key}=${value}`,
+    '',
+  );
+  return `${url}${searchParamString}`;
 };

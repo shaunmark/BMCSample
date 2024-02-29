@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * This could have been handled by queryParams,
+ * but implemented in here just to show state management with useContext
+ */
+
 type MovieContextType = {
   state: {
     selectedId: string;

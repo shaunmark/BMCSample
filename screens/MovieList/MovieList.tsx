@@ -8,35 +8,53 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {getMovieList} from '../../services/movie.service';
+import {getMovieList, queryMovieList} from '../../services/movie.service';
 import {MovieItemType, MovieListProps as Props} from './MovieList.type';
 import {useMovieContext} from '../../context/movie';
 import {ContentLoader} from '../../components/ContentLoader';
+import {SearchBar} from '../../components/SearchBar';
 
 export function MovieList({navigation}: Props): React.JSX.Element {
   const [movieList, setMovieList] = React.useState<MovieItemType[]>([]);
   const [isError, setError] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
+  const [searchText, setSearchText] = React.useState('');
 
   const movieContext = useMovieContext();
+
+  const isSearchTextEmpty = searchText === '';
 
   const fetchMovieList = React.useCallback(async () => {
     setLoading(true);
     setError(false);
-    const {isError, data} = await getMovieList();
+    const fetchAPI = isSearchTextEmpty
+      ? getMovieList
+      : () => queryMovieList(searchText);
+
+    const {isError, data} = await fetchAPI();
+
     setError(isError);
-    if (!isError) setMovieList(data);
+    if (!isError && !data) setError(true);
+    if (!isError && data) setMovieList(data);
     setLoading(false);
-  }, []);
+  }, [searchText]);
+
+  const navigateToDetails =
+    ({id, title}: MovieItemType) =>
+    () => {
+      movieContext.actions.setMovieSelection(id);
+      navigation.navigate('MovieDetails', {movieName: title});
+    };
+
+  const onSearch = (newSearchText: string) => setSearchText(newSearchText);
 
   React.useEffect(() => {
     fetchMovieList();
-  }, []);
+  }, [searchText]);
 
-  const navigateToDetails = (id: string) => () => {
-    movieContext.actions.setMovieSelection(id);
-    navigation.navigate('MovieDetails');
-  };
+  const titleText = isSearchTextEmpty
+    ? `Discover latest movies!`
+    : `Showing results for "${searchText}"`;
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -44,19 +62,23 @@ export function MovieList({navigation}: Props): React.JSX.Element {
         isError={isError}
         isLoading={isLoading}
         onPressTryAgain={fetchMovieList}>
-        <View style={cn.list}>
-          <FlatList
-            scrollEnabled
-            data={movieList}
-            renderItem={({item}) => (
-              <MovieItem
-                key={item.id}
-                {...item}
-                onClick={navigateToDetails(item.id)}
-              />
-            )}
-          />
-        </View>
+        <>
+          <SearchBar onPressSearch={onSearch} />
+          <View style={cn.list}>
+            <Text style={cn.titleText}>{titleText}</Text>
+            <FlatList
+              scrollEnabled
+              data={movieList}
+              renderItem={({item}) => (
+                <MovieItem
+                  key={item.id}
+                  {...item}
+                  onClick={navigateToDetails(item)}
+                />
+              )}
+            />
+          </View>
+        </>
       </ContentLoader>
     </SafeAreaView>
   );
@@ -90,6 +112,12 @@ const cn = StyleSheet.create({
     flexDirection: 'column',
     padding: 18,
     columnGap: 18,
+    flex: 1,
+  },
+  titleText: {
+    color: 'black',
+    fontSize: 16,
+    marginBottom: 12,
   },
   movieCardWrapper: {
     marginBottom: 12,

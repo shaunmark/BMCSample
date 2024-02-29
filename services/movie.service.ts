@@ -37,7 +37,7 @@ export async function getMovieList(): Promise<
 }
 
 function parseMovieList(data: MovieListResponseType['results']) {
-  return data.map(
+  return data?.map(
     ({id, original_title, backdrop_path, release_date, poster_path}) => ({
       id: `${id}`,
       title: original_title,
@@ -61,11 +61,9 @@ export async function getMovieDetails(
   id: string,
 ): Promise<ReponseInterface<MovieDetailsType>> {
   try {
-    console.log(id);
     const response = await fetch(getApiRoute('details', `/${id}`));
     const data = (await response.json()) as unknown as MovieDetailsResponseType;
     const movieDetails = parseMovieDetails(data);
-    console.log(movieDetails);
     return {
       isError: false,
       data: movieDetails,
@@ -89,4 +87,26 @@ function parseMovieDetails(data: MovieDetailsResponseType) {
     overview: data.overview,
     genres: data.genres.map(({name}) => name).join(', '),
   };
+}
+
+export async function queryMovieList(
+  searchQuery: string,
+): Promise<ReponseInterface<MovieItemType[]>> {
+  try {
+    const response = await fetch(
+      getApiRoute('search', '', {query: searchQuery}),
+    );
+    const data = (await response.json()) as unknown as MovieListResponseType;
+    const movieListData = parseMovieList(data.results);
+    return {
+      isError: false,
+      data: movieListData,
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      isError: true,
+      data: [],
+    };
+  }
 }
