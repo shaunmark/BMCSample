@@ -35,5 +35,6 @@ const cn = StyleSheet.create({
   input: {
     flex: 1,
     padding: 8,
+    color: 'black',
   },
 });

@@ -109,6 +109,7 @@ const cn = StyleSheet.create({
     flexDirection: 'column',
     padding: 18,
     columnGap: 18,
+    flex: 1
   },
   titleText: {
     color: 'black',
