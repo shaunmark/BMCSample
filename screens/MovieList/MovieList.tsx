@@ -76,7 +76,7 @@ function MovieItem(props: MovieItemProps) {
           <Image style={cn.moviePoster} src={props.posterImage} />
           <View style={cn.movieText}>
             <Text style={cn.movieTitle}>{props.title}</Text>
-            <Text>{props.releaseDate}</Text>
+            <Text style={cn.defaultText} >{props.releaseDate}</Text>
           </View>
         </View>
       </View>
@@ -117,6 +117,9 @@ const cn = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 16,
+  },
+  defaultText: {
+    color: 'grey',
   },
   moviePoster: {
     height: 120,

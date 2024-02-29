@@ -40,15 +40,15 @@ export function MovieDetails({navigation}: Props): React.JSX.Element {
         <View style={cn.detailsWrapper}>
           <Image style={cn.moviePoster} src={movieDetails?.posterImage} />
           <Text style={cn.movieTitle}>{movieDetails?.title}</Text>
-          <Text>
+          <Text style={cn.defaultText}>
             <Text style={cn.label}>Genres: </Text>
             {movieDetails?.genres}
           </Text>
-          <Text>
+          <Text style={cn.defaultText}>
             <Text style={cn.label}>Overview: </Text>
             {movieDetails?.overview}
           </Text>
-          <Text>
+          <Text style={cn.defaultText}>
             <Text style={cn.label}>Release date: </Text>
             {movieDetails?.releaseDate}
           </Text>
@@ -79,5 +79,8 @@ const cn = StyleSheet.create({
     color: 'black',
     fontSize: 12,
     fontWeight: '400',
+  },
+  defaultText: {
+    color: 'grey',
   },
 });
